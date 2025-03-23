@@ -1,14 +1,16 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
-  const url = "https://food-del-backend-rhqy.onrender.com";
   const [token, setToken] = useState(null);
   const [food_list, setFoodList] = useState([]);
+  const url = "https://food-del-backend-rhqy.onrender.com";
+  const navigate = useNavigate(); // Hook for navigation
 
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
@@ -79,7 +81,11 @@ const StoreContextProvider = ({ children }) => {
         const isValid = await verifyToken(savedToken);
         if (isValid) {
           await loadCartData(savedToken);
+        } else {
+          navigate("/login"); // Redirect to login if the token is invalid
         }
+      } else {
+        navigate("/login"); // Redirect to login if no token exists
       }
     }
     loadData();
