@@ -13,7 +13,22 @@ const port = process.env.PORT || 4000
 
 //middleware
 app.use(express.json())
-app.use(cors())
+
+// ✅ CORS Configuration (Ensure WebSocket connection works)
+const allowedOrigins = [
+    "http://localhost:5173", // Your frontend URL
+    "https://food-del-frontend-ro5d.onrender.com"
+  ];
+  
+
+app.use(
+    cors({
+      origin: allowedOrigins,
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+  );
 
 //DB connection
 connectDB();
