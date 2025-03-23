@@ -25,7 +25,7 @@ const LoginPop = ({ setShowLogin }) => {
     const url = currState === 'Sign Up' ? '/api/user/register' : '/api/user/login';
 
     try {
-      const response = await axios.post(`http://localhost:4000${url}`, data);
+      const response = await axios.post(`http://localhost:4001${url}`, data);
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);
         setToken(response.data.token);
