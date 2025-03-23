@@ -16,20 +16,18 @@ app.use(express.json())
 
 // ✅ CORS Configuration (Ensure WebSocket connection works)
 const allowedOrigins = [
-  "http://localhost:4001", // Your frontend URL
-  "https://food-del-frontend-ro5d.onrender.com/"
-];
-
-
-app.use(
+    "http://localhost:8001", // Frontend Localhost
+    "https://food-del-frontend-ro5d.onrender.com", // Deployed Frontend
+  ];
+  
+  app.use(
     cors({
       origin: allowedOrigins,
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization"],
+      allowedHeaders: ["Content-Type", "Authorization", "token"], // ✅ Added 'token'
     })
   );
-
 //DB connection
 connectDB();
 
